@@ -5,6 +5,22 @@ session_start();
 $connect = mysqli_connect("localhost", "root", "", "healthy_corner");
 $conn = new mysqli("localhost", "root", "", 'healthy_corner');
 
+$sql = "SELECT * FROM product_mother";
+$res = mysqli_query($connect, $sql);
+
+while($row = mysqli_fetch_array($res)){
+if($row["name"] == $meat){
+	$_SESSION["quantity"] = $row["sales_count"] + 1;
+}
+$quantity = $_SESSION["quantity"];
+
+$sql2 = "UPDATE `product_mother` SET `sales_count`= '".$quantity."' WHERE `name` = '".$meat."'";
+mysqli_query($connect, $sql2);
+$sql3 = "UPDATE `product_mother` SET `sales_count`= '".$quantity."' WHERE `name` = '".$veg."'";
+mysqli_query($connect, $sql3);
+$sql4 = "UPDATE `product_mother` SET `sales_count`= '".$quantity."' WHERE `name` = '".$rice."'";
+mysqli_query($connect, $sql4);
+}
 
 	// foreach($_SESSION["shopping_cart"] as $keys => $values){
 	//

@@ -1,4 +1,4 @@
-<?php $connect = mysqli_connect("localhost","root","","healthy_corner");
+<?php $connect = mysqli_connect("localhost","root","","HNH");
 session_start();?>
 <!DOCTYPE html>
 <html>
@@ -101,7 +101,7 @@ p {
 <body>
 	<div class="container-fluid">
 		<div class="row text-center">
-			<div class="col-sm-12"><h1 class="header">HEALTHY CORNER</h1></div>
+			<div class="col-sm-12"><h1 class="header">HAPPY N' HEALTHY</h1></div>
 			<div class="clearfix"></div>
 		</div>
 
@@ -114,25 +114,19 @@ p {
 						<div class="row">
 							<section>
 							<div>
-							  <input type="radio" id="control_01" name="type" value="MCV">
-							  <label for="control_01">
-							    <h9>MCV</h9>
-							  </label>
-							</div>
-							<div>
-							  <input type="radio" id="control_02" name="type" value="MC">
+							  <input type="radio" id="control_02" name="type" value="duo">
 							  <label for="control_02">
-							    <h9>MC</h9>
+							    <h9>DUO</h9>
 							  </label>
 							</div>
 							<div>
-							  <input type="radio" id="control_03" name="type" value="MV">
+							  <input type="radio" id="control_03" name="type" value="trio">
 							  <label for="control_03">
-							    <h9>MV</h9>
+							    <h9>TRIO</h9>
 							  </label>
 							</div>
 							<div>
-							  <input type="radio" id="control_04" name="type" value="AC">
+							  <input type="radio" id="control_04" name="type" value="ac">
 							  <label for="control_04">
 							    <h9>AC</h9>
 							  </label>
@@ -149,21 +143,43 @@ p {
 								<section>
 								<?php
 
-						      $query = "SELECT * FROM `product_mother` WHERE 1";
-						      $results = mysqli_query($connect, $query);
+								$result = mysqli_query($connect,
+	 							"CALL gethappy") or die("Query fail: " . mysqli_error());
 
-						      while($row = mysqli_fetch_array($results)){
-						          if($row["section"] == "MEAT"){
+						      while($row = mysqli_fetch_array($result)){
+						          if($row["section"] == "1"){
 						          ?>
 											<div>
 												<input type="hidden" name="name" id="name<?php echo $row['id']?>" value="<?php echo $row['name']?>">
-												<input type="radio" name="meat" id="<?php echo $row['id']?>" value="<?php echo $row['name']?>">
+												<input type="radio" name="1" id="<?php echo $row['id']?>" value="<?php echo $row['name']?>">
 											  <label for="<?php echo $row['id']?>">
 											    <h9><?php echo $row["name"]?></h9>
 											  </label>
 											</div>
 						          <?php
 						        }
+										if($row["section"] == "2"){
+										?>
+										<div>
+											<input type="hidden" name="name" id="name<?php echo $row['id']?>" value="<?php echo $row['name']?>">
+											<input type="radio" name="2" id="<?php echo $row['id']?>" value="<?php echo $row['name']?>">
+											<label for="<?php echo $row['id']?>">
+												<h9><?php echo $row["name"]?></h9>
+											</label>
+										</div>
+										<?php
+									}
+									if($row["section"] == "3"){
+									?>
+									<div>
+										<input type="hidden" name="name" id="name<?php echo $row['id']?>" value="<?php echo $row['name']?>">
+										<input type="radio" name="3" id="<?php echo $row['id']?>" value="<?php echo $row['name']?>">
+										<label for="<?php echo $row['id']?>">
+											<h9><?php echo $row["name"]?></h9>
+										</label>
+									</div>
+									<?php
+								}
 						      }
 						      ?>
 								</section>
@@ -181,26 +197,48 @@ p {
 							<div class="row">
 								<section>
 								<?php
+								$connect->next_result();
+								$result = mysqli_query($connect,
+	 							"CALL gethealthy") or die("Query fail: " . mysqli_error());
 
-						      $query = "SELECT * FROM `product_mother` WHERE 1";
-						      $results = mysqli_query($connect, $query);
-
-						      while($row = mysqli_fetch_array($results)){
-						          if($row["section"] == "VEG"){
+						      while($row = mysqli_fetch_array($result)){
+						          if($row["section"] == "1"){
 						          ?>
 											<div>
 												<input type="hidden" name="name" id="name<?php echo $row['id']?>" value="<?php echo $row['name']?>">
-												<input type="radio" name="veg" id="<?php echo $row['id']?>" value="<?php echo $row['name']?>">
+												<input type="radio" name="2" id="<?php echo $row['id']?>" value="<?php echo $row['name']?>">
 											  <label for="<?php echo $row['id']?>">
 											    <h9><?php echo $row["name"]?></h9>
 											  </label>
 											</div>
 						          <?php
 						        }
+										if($row["section"] == "2"){
+										?>
+										<div>
+											<input type="hidden" name="name" id="name<?php echo $row['id']?>" value="<?php echo $row['name']?>">
+											<input type="radio" name="3" id="<?php echo $row['id']?>" value="<?php echo $row['name']?>">
+											<label for="<?php echo $row['id']?>">
+												<h9><?php echo $row["name"]?></h9>
+											</label>
+										</div>
+										<?php
+									}
+									if($row["section"] == "3"){
+									?>
+									<div>
+										<input type="hidden" name="name" id="name<?php echo $row['id']?>" value="<?php echo $row['name']?>">
+										<input type="radio" name="4" id="<?php echo $row['id']?>" value="<?php echo $row['name']?>">
+										<label for="<?php echo $row['id']?>">
+											<h9><?php echo $row["name"]?></h9>
+										</label>
+									</div>
+									<?php
+								}
 						      }
 						      ?>
 								</section>
-						</div>
+						</div	>
 
 						<br><br><br>
 						<h5 class="card-title"><u>Rice</u></h5>
@@ -210,9 +248,8 @@ p {
 								<?php
 						      $query = "SELECT * FROM `product_mother` WHERE 1";
 						      $results = mysqli_query($connect, $query);
-
 						      while($row = mysqli_fetch_array($results)){
-						          if($row["section"] == "RICE"){
+						          if($row["section"] == "premium"){
 						          ?>
 											<div>
 												<input type="hidden" name="name" id="name<?php echo $row['id']?>" value="<?php echo $row['name']?>">
@@ -258,9 +295,9 @@ p {
 						      while($row = mysqli_fetch_array($results)){
 						          ?>
 											<tr>
-											<td><?php echo $row["meat"] ?></td>
-											<td><?php echo $row["veggies"] ?></td>
-											<td><?php echo $row["carbs"] ?></td>
+											<td><?php echo $row["1"] ?></td>
+											<td><?php echo $row["2"] ?></td>
+											<td><?php echo $row["3"] ?></td>
 											<td><?php echo $row["type"] ?></td>
 											<td><?php echo $row["price"] ?></td>
 											<td><button name="remButton" class="btn btn-danger btn-xs delete custom-button" id="<?php echo $row["id"]; ?>">Remove</button></td>
@@ -281,7 +318,7 @@ p {
 	</form>
 </body>
 <script type="text/javascript">
-var allRadios = document.getElementsByName('rice');
+var allRadios = document.getElementsByName('3');
 var booRadio;
 var x = 0;
 for(x = 0; x < allRadios.length; x++){
@@ -299,7 +336,7 @@ for(x = 0; x < allRadios.length; x++){
 }
 </script>
 <script type="text/javascript">
-var allRadios = document.getElementsByName('veg');
+var allRadios = document.getElementsByName('2');
 var booRadio;
 var x = 0;
 for(x = 0; x < allRadios.length; x++){
@@ -317,7 +354,7 @@ for(x = 0; x < allRadios.length; x++){
 }
 </script>
 <script type="text/javascript">
-var allRadios = document.getElementsByName('meat');
+var allRadios = document.getElementsByName('1');
 var booRadio;
 var x = 0;
 for(x = 0; x < allRadios.length; x++){
