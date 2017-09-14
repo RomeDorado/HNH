@@ -40,7 +40,7 @@
                         <div id="capslockdiv">
                             Caps lock is on
                         </div>
-                        <a href="forgotpass.php">Forgot password?</a><br/>												
+                        <a href="register.php">Sign up</a><br/><a href="forgotpass.php">Forgot password?</a><br/>												
                         <button class="button btn-block" type="submit">Submit</button>						
                     </form>			
 
