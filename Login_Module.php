@@ -15,14 +15,14 @@
         <link href="signin.css" rel="stylesheet">
         <title>Login Page</title>
 
-    </head> 
+    </head>
 
     <!-- script imports -->
 
     <script src="css/jquery.min.js"></script>
     <script src="css/bootstrap.min.js"></script>
 
-    <body>    
+    <body>
 
         <hr class="featurette-divider">
         <div class="container marketing">
@@ -40,9 +40,9 @@
                         <div id="capslockdiv">
                             Caps lock is on
                         </div>
-                        <a href="forgotpass.php">Forgot password?</a><br/>												
-                        <button class="button btn-block" type="submit">Submit</button>						
-                    </form>			
+                        <a href="register.php">Sign up</a><br/><a href="forgotpass.php">Forgot password?</a><br/>
+                        <button class="button btn-block" type="submit">Submit</button>
+                    </form>
 
                 </div>
             </div>
@@ -51,7 +51,7 @@
             <div class="container">
                 <p class="text-muted">Place sticky footer content here.</p>
             </div>
-        </footer> 
+        </footer>
 
     </body>
 

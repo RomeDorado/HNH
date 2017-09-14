@@ -87,9 +87,8 @@
 															// echo "<input type=hidden name=beforesize value='" . $row ['temp'] . "'/>";
 															// echo "<input type=hidden name=maxsize value='" . $row ['MaxSize'] . "'/>";
 															echo "<input type=hidden name=ingr value='" . $row ['name'] . "'/>";////////////////?>
-															// <input type=submit name=btn value=Add onClick = "return confirm('Are you sure you want to restock?')" class='btn btn-sm btn-success'/>
-															
-															<input type=submit name=btn value=Undo class='btn btn-sm btn-warning' onClick = "return confirm('Are you sure you want to undo?')"/>
+															 <input type=submit name=btn value=Add onClick = "return confirm('Are you sure you want to enter consumed value?')" class='btn btn-sm btn-success'/>
+																														
 															
 															<?php
 															echo "</form>";
