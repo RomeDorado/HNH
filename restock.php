@@ -86,12 +86,7 @@
 												<tr>
 													<td class="col-sm-4">
 														<?php
-															echo "<b>" . $row ["name"] . "</b>";
-
-															if ($row ['size'] <= $size * .50) {
-																echo "  <font color='red'><b><i>STOCK BELOW 50%</i></b></font>";
-															}
-
+															echo "<b>" . $row ["name"] . "</b>";															
 														?>
 													</td>
 													<td class="col-sm-1"><?php echo $row['MaxSize']; ?> </td>
