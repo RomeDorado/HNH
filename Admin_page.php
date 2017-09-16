@@ -68,7 +68,8 @@
 									<thead class="default">
 										<tr>
 											<th width="20%">Product Name</th>
-											<th width="40%">Sales</th>
+											<th width="40%">Actual consumed</th>
+											<th width="40%">Employee consumed</th>
 
 										<tr>
 									</thead>
@@ -81,8 +82,9 @@
                                     ?>
 										<tr></tr>
                                         <td><?php echo $row["name"]?></td>
-                                        <td><?php echo $row["count"]?></td>
-                                    <?php  ?>
+										<td><?php echo $row["sales_count"]?></td>
+										<td><?php echo $row["count"]?></td>
+                                    <?php
                                         }
                                     ?>
 									</tbody>
