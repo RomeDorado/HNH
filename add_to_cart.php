@@ -23,9 +23,9 @@
 	}else{
 
 
-		$meat = $_POST["meat"];
-		$veg = $_POST["veg"];
-		$rice = $_POST["rice"];
+		$meat = $_POST["var1"];
+		$veg = $_POST["var2"];
+		$rice = $_POST["var3"];
 		$type = $_POST["type"];
 		$_SESSION["quantity"] = 0;
 		$price = 0;
@@ -39,7 +39,7 @@
 		  $price = 99;
 		}
 		echo '<script>console.log($meat)</script>';
-		$query = "INSERT INTO `temp` (`id`, `Meat`, `Veggies`, `Carbs`, `Type`, `Price`) VALUES (NULL, '".$meat."', '".$veg."', '".$rice."', '".$type."', '".$price."')";
+		$query = "INSERT INTO `temp` (`id`, `1`, `2`, `3`, `Type`, `Price`) VALUES (NULL, '".$meat."', '".$veg."', '".$rice."', '".$type."', '".$price."')";
 		if (mysqli_query($connect, $query)) {
 		  echo "<script>alert('New record created successfully');</script>";
 	  }
@@ -49,7 +49,7 @@
 
 	  $sql = "SELECT * FROM product_mother";
 	  $res = mysqli_query($connect, $sql);
-	  
+
 	  while($row = mysqli_fetch_array($res)){
 		if($row["name"] == $meat){
 			$_SESSION["quantity"] = $row["sales_count"] + 1;
