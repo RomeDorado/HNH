@@ -1,58 +1,64 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="utf-8">
-		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 
-		<title>Admin View</title>
-		<script src="css3.css"></script>
+	<title>Admin View</title>
+	<script src="css3.css"></script>
 
-		<!-- Bootstrap -->
-		<link rel="stylesheet" href="CSS/bootstrap.min.css">
-		<link rel="stylesheet" type="text/css" href="css/home.css">
-	</head>
-	<body>
-		<div class="container-fluid">
-			<div class="row">
-				<div class="col-sm-1 col-sm-offset-11">
-					<form action = "logout.php" method= "post">
-					<input type="submit" name="zerotemp" value ="Logout" class="btn btn-danger btn-xs" onClick="return confirm('Are you sure you want to logout?');"></button>
-					</form>
-				</div>
-				<div class="col-sm-12">
-					<div class="col-sm-12" style="margin-top: -1%"><h1 class="header"><img src="images/header.png"></h1></div>
-				</div>
-				<div class="clearfix"></div>
-			</div>
+	<!-- Bootstrap -->
+	<link rel="stylesheet" href="dist/css/bootstrap.min.css">
+	<link rel="stylesheet" href="dist/font-awesome/css/font-awesome.min.css">
+</head>
+<body>
+	<!-- Navbar -->
+	<nav class="navbar navbar-toggleable-md navbar-light bg-faded">
+		<button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<a class="navbar-brand" href="#">Happy N' Healthy</a>
 
-			<ul class="nav nav-tabs navbar-left">
-				<li class="active"><a data-toggle="tab" href="#stocks">Stocks</a></li>
-				<li><a href="admreports.php">Report</a></li>
-				<li><a href="admprices.php">Prices</a></li>
-				<li><a href="admacc.php">Account Management</a></li>
-				<li><a href="addprodingr.php">Add Products</a></li>
+		<div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+			<ul class="navbar-nav mr-auto mt-2 mt-md-0">
+				<li class="nav-item active">
+					<span class="nav-link">Stocks <span class="sr-only">(current)</span></span>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="#">Report</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="#">Prices</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="#">Account Management</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="#">Add Products</a>
+				</li>
 			</ul>
 
-			<div class="clearfix"></div>
+			<span class="navbar-text">
+				<a class=" nav-item btn btn-danger btn-sm" href="#">Logout</a>
+			</span>
+		</div>
+	</nav>
 
-			<div class="tab-content white-bg">
-				<div id="stocks" class="tab-pane fade in active" style="height: 500px; overflow-y: scroll;">
-					<div class="row center-block">
-						<div class="col-sm-12">
+	<div class="container-fluid mt-5">
+		<div class="row">
+			<div class="col">
+				<table class="table table-reflow table-striped table-bordered">
+					<thead class="thead-inverse">
+						<tr>
+							<th>Ingredient</th>
+							<th>Consumed</th>
+							<th colspan="2">Action</th>
+						</tr>
+					</thead>
 
-							<table
-								class="table table-responsive table-bordered table-condensed custom-table" style="margin: 0;">
-								<thead>
-									<tr class="default">
-										<td class="col-sm-4" style="vertical-align: middle !important;"><b>Ingredient</b></td>
-										<td class="col-sm-1" style="vertical-align: middle !important;"><b>Consumed</b></td>
-										<td class="col-sm-4" style="vertical-align: middle !important;"><b>Action</b></td>
-									</tr>
-								</thead>
-							</table>
-
-							<?php
+					<tbody>
+						<?php
 								//session_start();
 								$connect = mysqli_connect("localhost", "root", "", "HNH");
 
@@ -71,35 +77,29 @@ where 1";
 										$count = $row['count'];
 							?>
 
-										<table class="table-responsive table-bordered table-condensed custom-table" width=100%>
-											<tbody>
-												<tr>
-													<td class="col-sm-4">
-														<?php
-															echo "<b>" . $row ["name"] . "</b>";
-
-														?>
-													</td>
-													<td class="col-sm-1"><?php echo $count; ?> </td>
-														<?php
-															echo "<form action = 'count_process.php' method=post>";
-															echo "<td class='col-sm-5'>";
-															echo "<input type=number step='.01' min=0 name=amount placeholder='Quantity'/> ";
-															echo "<input type=hidden name=id value='" . $row ['id'] . "'/>";
-															// echo "<input type=hidden name=currentsize value='" . $row ['size'] . "'/>";
-															// echo "<input type=hidden name=beforesize value='" . $row ['temp'] . "'/>";
-															// echo "<input type=hidden name=maxsize value='" . $row ['MaxSize'] . "'/>";
-															echo "<input type=hidden name=ingr value='" . $row ['name'] . "'/>";////////////////?>
-															 <input type=submit name=btn value=Add onClick = "return confirm('Are you sure you want to enter consumed value?')" class='btn btn-sm btn-success'/>
+										<tr>
+											<th scope="row" class="text-center">
+												<?php echo $row ["name"]; ?>
+											</th>
+											<td><?php echo $count; ?> </td>
+												<?php
+													echo "<form action = 'count_process.php' method=post class='form-inline'>";
+													echo "<td>";
+													echo "<input type=number step='.01' min=0 name=amount placeholder='Quantity' class='form-control'/></td> ";
+													echo "<input type=hidden name=id value='" . $row ['id'] . "'/>";
+													// echo "<input type=hidden name=currentsize value='" . $row ['size'] . "'/>";
+													// echo "<input type=hidden name=beforesize value='" . $row ['temp'] . "'/>";
+													// echo "<input type=hidden name=maxsize value='" . $row ['MaxSize'] . "'/>";
+													echo "<input type=hidden name=ingr value='" . $row ['name'] . "'/>";////////////////?>
+													 <td><button type=submit name=btn onClick="return confirm('Are you sure you want to enter consumed value?')" class='btn btn-md btn-outline-success form-control'>
+													 	<i class='fa fa-plus-circle' aria-hidden='true'></i> Add</button>
 
 
-															<?php
-															echo "</form>";
-															echo "</td>";
-														?>
-												</tr>
-											</tbody>
-										</table>
+													<?php
+													echo "</form>";
+													echo "</td>";
+												?>
+										</tr>
 							<?php
 									}
 								} else {
@@ -107,12 +107,13 @@ where 1";
 								}
 								$connect->close();
 							?>
-						</div>
-					</div>
-				</div>
+					</tbody>
+				</table>
 			</div>
 		</div>
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-		<script src="CSS/bootstrap.min.js"></script>
-	</body>
+	</div>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	<script src="dist/js/bootstrap.min.js"></script>
+</body>
 </html>

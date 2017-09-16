@@ -28,18 +28,16 @@
         <div class="container marketing">
             <div class="row featurette">
                 <div class="col-md-6">
-                    <h2 class="featurette-heading">The Healthy Corner. <span class="text-muted">   Point of Sale System</span></h2>
-                    <img class="img-responsive center-block" src="THC.png" alt="THC Logo">
+                    <h2 class="featurette-heading">Happy N Healthy. <span class="text-muted">   Point of Sale System</span></h2>
+                    <img class="img-responsive center-block" src="BOTTOM.png" alt="HNH Logo">
                 </div>
                 <div class="col-md-5">
 
                     <form action="Login_Process_Module.php" class="form-signin" method="post" id="formid">
                         <h2 class="form-signin-heading">Please sign in</h2>
-                        <input type="text" id="user" name="username"    class="form-control" placeholder="username" required autofocus>
-                        <input type="password" id="pass" name = "password" class="form-control" placeholder="password" required autofocus>
-                        <div id="capslockdiv">
-                            Caps lock is on
-                        </div>
+                        <input type="text" id="user" name="username"    class="form-control" placeholder="username"onkeypress="capLock(event)"  required autofocus>
+                        <input type="password" id="pass" name = "password" class="form-control" placeholder="password" onkeypress="capLock(event)" required autofocus>
+                        <div id="divMayus" style="visibility:hidden">Caps Lock is ON.</div>
                         <a href="register.php">Sign up</a><br/><a href="forgotpass.php">Forgot password?</a><br/>
                         <button class="button btn-block" type="submit">Submit</button>
                     </form>
@@ -49,7 +47,7 @@
         </div>
         <footer class="footer">
             <div class="container">
-                <p class="text-muted">Place sticky footer content here.</p>
+                <p class="text-muted">Copyright &copy; 2017 Happy N Healthy</p>
             </div>
         </footer>
 
@@ -57,51 +55,15 @@
 
 
     <!-- javascripts -->
-
-    <script>
-        $(document).ready(
-                function () {
-                    check_capslock_form($('#formid')); //applies the capslock check to all input tags
-                }
-        );
-
-        document.onkeydown = function (e) { //check if capslock key was pressed in the whole window
-            e = e || event;
-            if (typeof (window.lastpress) === 'undefined') {
-                window.lastpress = e.timeStamp;
-            }
-            if (typeof (window.capsLockEnabled) !== 'undefined') {
-                if (e.keyCode == 20 && e.timeStamp > window.lastpress + 50) {
-                    window.capsLockEnabled = !window.capsLockEnabled;
-                    $('#capslockdiv').toggle();
-                }
-                window.lastpress = e.timeStamp;
-                //sometimes this function is called twice when pressing capslock once, so I use the timeStamp to fix the problem
-            }
-
-        };
-
-        function check_capslock(e) { //check what key was pressed in the form
-            var s = String.fromCharCode(e.keyCode);
-            if (s.toUpperCase() === s && s.toLowerCase() !== s && !e.shiftKey) {
-                window.capsLockEnabled = true;
-                $('#capslockdiv').show();
-            } else {
-                window.capsLockEnabled = false;
-                $('#capslockdiv').hide();
-            }
-        }
-
-        function check_capslock_form(where) {
-            if (!where) {
-                where = $(document);
-            }
-            where.find('input,select').each(function () {
-                if (this.type != "hidden") {
-                    $(this).keypress(check_capslock);
-                }
-            });
-        }
-    </script>
+<script language="Javascript">
+function capLock(e){
+ kc = e.keyCode?e.keyCode:e.which;
+ sk = e.shiftKey?e.shiftKey:((kc == 16)?true:false);
+ if(((kc >= 65 && kc <= 90) && !sk)||((kc >= 97 && kc <= 122) && sk))
+  document.getElementById('divMayus').style.visibility = 'visible';
+ else
+  document.getElementById('divMayus').style.visibility = 'hidden';
+}
+</script>
 
 </html>
