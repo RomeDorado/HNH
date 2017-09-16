@@ -18,7 +18,7 @@
 	<body>
 		<div class="container-fluid" style="padding-top: 10px;">
 			<div class="row">
-				<div class="col-sm-2 text-left">				
+				<div class="col-sm-2 text-left">
 				</div>
 				<div class="col-sm-1 col-sm-offset-9">
 					<form action="logout.php">
@@ -51,7 +51,7 @@
 
 					<ul class="nav nav-pills nav-stacked col-md-2 affix">
 						<li class="active"><a data-toggle="tab" href="#create">Create New
-								Account</a></li>						
+								Account</a></li>
 					</ul>
 
 					<div class="tab-content white-bg col-md-10 col-md-offset-2">
@@ -67,16 +67,15 @@
 											<div class="col-md-10 center-block form-group" style="background-color:white; width:100%;">
 												<form action="" method="post" class="form-horizontal" role="form">
 													<?php
-														error_reporting(E_ALL ^ E_DEPRECATED);														
+														// error_reporting(E_ALL ^ E_DEPRECATED);
 														$_SESSION['message'] = '';
-														$dbhandle = mysql_connect('localhost', 'root', '');
-
-														$selected = mysql_select_db("healthy_corner", $dbhandle);
+														$dbhandle = mysql_connect('localhost', 'root', '' , 'HNH');
+														$selected = mysql_select_db("HNH", $dbhandle);
 
 														if(isset($_POST['username']) && isset($_POST['password'])){
 															if($_POST['password']==$_POST['confirmpassword']){
 																$user = $_POST['username'];
-																$pass = $_POST['password'];														
+																$pass = $_POST['password'];
 																$query = mysql_query("SELECT * FROM table_login WHERE username ='$user'");
 																if(mysql_num_rows($query) > 0){
 																$_SESSION['message'] = "There is already a user with that username";
@@ -84,13 +83,13 @@
 																echo "<p>". $_SESSION['message'] . "</p>";
 																echo "</div>";
 															}
-															else{		                                                                
-                                                               $password = password_hash($pass, PASSWORD_DEFAULT, ['cost => 12']);														
+															else{
+                                                               $password = password_hash($pass, PASSWORD_DEFAULT, ['cost => 12']);
 																		mysql_query("INSERT INTO table_login (id, username, password) VALUES (null, '$user', '$password')");
 																		$_SESSION['message'] = "New account created";
 																			echo "<div class='alert alert-success'>";
 																			echo "<p>". $_SESSION['message'] . "</p>";
-																			echo "</div>";																	
+																			echo "</div>";
 																	}
 																}else{
 																	$_SESSION['message'] = "Passwords did not match";
@@ -113,7 +112,7 @@
 														<label for="password" class="col-md-3 control-label">Password:</label>
 														<div class="col-md-9">
 															<input type="password" id="txtNewPassword" onChange="checkPasswordMatch();" placeholder="Password" name="password" class="form-control" required />
-														</div>														
+														</div>
 													</div>
 													<div class="registrationFormAlert" id="divCheckPasswordMatch">
 														</div>
@@ -125,17 +124,17 @@
 														</div>
 													</div>
 													<div class="registrationFormAlert" id="divCheckPasswMatch">
-													</div>																									
+													</div>
 
 													<input type="submit" id="btnsub" onClick="a()" value="Register" name="register" class='btn btn-md btn-success' onClick="return confirm('Are you sure you want to register new account?');"/>
 
-														</form>														
+														</form>
 											</div>
 										</div>
 									</div>
 								</div>
 							</div>
-						</div>										
+						</div>
 			</div>
 		</div>
 	</div>
@@ -153,15 +152,15 @@ $(document).ready(function() {
 		$(document.body).on("click", "a[data-toggle]", function(event) {
 				location.hash = this.getAttribute("href");
 		});
-		
-		
+
+
 });
 
 $(window).on("popstate", function() {
 		var anchor = location.hash || $("a[data-toggle='tab']").first().attr("href");
 		$("a[href='" + anchor + "']").tab("show");
 });
-	
+
 
 $(function() {
     // Load all the dropdowns
@@ -171,14 +170,14 @@ $(function() {
     // Declare a array where you store the selections
     var arrSelect = {
         'select1': '0',
-        'select2': '0',        
+        'select2': '0',
     };
 
     $('select').on('change', function() {
         var currID = $(this).prop('id');
         // Set the Current selection
         arrSelect[currID] = $(this).val();
-        // Iterate Thru each dropdown 
+        // Iterate Thru each dropdown
         $.each(arr, function(i) {
             var temp = arrSelect[arr[i]];
             // Clone the template
@@ -190,23 +189,23 @@ $(function() {
                     $clone.find('option[value=' + value + ']').remove();
                 }
             });
-            // If not Current select rewrite its 
+            // If not Current select rewrite its
             // contents of the select
             if (arr[i] != currID) {
                 //console.log('#' + arr[i] + ' :: ' + $clone.html());
                 $('#' + arr[i]).html('').html($clone.html());
                 $('#' + arr[i]).val(temp);
             }
-        });			
-		
-		var first = $("#select1 :selected").text(); 
-		var second = $("#select2 :selected").text(); 
+        });
+
+		var first = $("#select1 :selected").text();
+		var second = $("#select2 :selected").text();
 		$('#se1').append(first);
 		$('#se2').append(second);
-		
+
     });
-				
-		
+
+
 });
 
 function a(){
@@ -224,21 +223,21 @@ function checkPasswordMatch() {
     var pass = password.length;
     if (pass > 8){
         //$("#divCheckPasswordMatch").html("Password is too short!");
-    
+
     if(password.match(/\d/) && password.match(/[a-zA-Z]/) && password.match(/\W/)){
          $("#divCheckPasswordMatch").html("Strong password");
-         
+
          } else
-         
+
          $("#divCheckPasswordMatch").html("Password must contain 1 special character and 1 number");
-         
+
     }
     else
         $("#divCheckPasswordMatch").html("Password is too short!");
 }
 
 function checkPasswMatch(){
-	
+
 	var password = $("#txtNewPassword").val();
     var confirmPassword = $("#txtConfirmPassword").val();
 
@@ -246,7 +245,7 @@ function checkPasswMatch(){
         $("#divCheckPasswMatch").html("Passwords do not match!");
     else
         $("#divCheckPasswMatch").html("Passwords match.");
-	
+
 }
 
 $(document).ready(function () {

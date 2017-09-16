@@ -1,7 +1,8 @@
 <?php
     session_start();
-    $connect = mysqli_connect("localhost","root","","healthy_corner");
+    $connect = mysqli_connect("localhost","root","","HNH");
 	if($_POST["action"] == "remove"){
+    echo "<script> alert('pasok');</script>";
 		$q = "SELECT * FROM temp";
 		$resu = mysqli_query($connect, $q);
 
@@ -9,7 +10,12 @@
 			if($row["id"] == $_POST["id"]){
 
 				$q2 = "DELETE FROM `temp` WHERE `id` = '".$_POST["id"]."'";
-				mysqli_query($connect, $q2);
+				if(mysqli_query($connect, $q2)){
+         echo "<script> alert('tangina gumana na');</script>";
+        }
+        else{
+          echo "<script>alert('tanigna paasa');</script>";
+        }
 
 			}
 
@@ -20,26 +26,27 @@
 		$truncate = "TRUNCATE temp";
 		mysqli_query($connect, $truncate);
 
-	}else{
+	}else if($_POST['action'] == "add"){
 
 
-		$meat = $_POST["meat"];
-		$veg = $_POST["veg"];
-		$rice = $_POST["rice"];
+		$meat = $_POST["var1"];
+		$veg = $_POST["var2"];
+		$rice = $_POST["var3"];
 		$type = $_POST["type"];
+    echo $meat;
+    echo $veg;
+    echo $rice;
+    echo $type;
 		$_SESSION["quantity"] = 0;
 		$price = 0;
-		if($type==""){
-		  $price = 109;
-		}
-		if($type=="MC"){
+		if($type=="duo"){
 		  $price = 89;
 		}
-		if($type=="MV"){
+		if($type=="trio"){
 		  $price = 99;
 		}
 		echo '<script>console.log($meat)</script>';
-		$query = "INSERT INTO `temp` (`id`, `1`, `2`, `3`, `Type`, `Price`) VALUES (NULL, '".$meat."', '".$veg."', '".$rice."', '".$type."', '".$price."')";
+		$query = "INSERT INTO `temp` (`id`, `item1`, `item2`, `item3`, `type`, `price`) VALUES (NULL, '".$meat."', '".$veg."', '".$rice."', '".$type."', '".$price."')";
 		if (mysqli_query($connect, $query)) {
 		  echo "<script>alert('New record created successfully');</script>";
 	  }
@@ -47,7 +54,16 @@
 		  echo "<script>alert('tae');</script>";
 	  }
 
+	  $sql = "SELECT * FROM product_mother";
+	  $res = mysqli_query($connect, $sql);
 
+	  while($row = mysqli_fetch_array($res)){
+		if($row["name"] == $meat){
+			$_SESSION["quantity"] = $row["sales_count"] + 1;
+		}
+		$quantity = $_SESSION["quantity"];
+
+	  }
 
 
 }

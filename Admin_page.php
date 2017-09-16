@@ -1,6 +1,6 @@
 <?php
 	session_start();
-    $connect = mysqli_connect("localhost", "root", "", "healthy_corner");
+    $connect = mysqli_connect("localhost", "root", "", "HNH");
 ?>
 
 <!DOCTYPE html>
@@ -58,9 +58,9 @@
 								<form action="admreports.php" method="GET">
 									<div style="width: 70%;" class="col-md-10 center-block" >
 										<div class="form-group col-md-5">
-											
-											
-										</div>																				
+
+
+										</div>
 									</div>
 								</form>
 
@@ -69,26 +69,24 @@
 										<tr>
 											<th width="20%">Product Name</th>
 											<th width="40%">Sales</th>
-											
+
 										<tr>
 									</thead>
 
 									<tbody>
                                     <?php
-                                    $sql1 = "SELECT * FROM product_mother";
+                                    $sql1 = "SELECT product_mother.*, employee_count.count from product_mother join employee_count on employee_count.prod_fk = product_mother.id where 1";
                                     $result=mysqli_query($connect, $sql1);
-                                        while($row = $result->fetch_assoc()){ 
-
-                                        
+                                        while($row = $result->fetch_assoc()){
                                     ?>
 										<tr></tr>
                                         <td><?php echo $row["name"]?></td>
-                                        <td><?php echo $row["sales_count"]?></td>
-                                    <?php
+                                        <td><?php echo $row["count"]?></td>
+                                    <?php  ?>
                                         }
                                     ?>
 									</tbody>
-									
+
 
 
 								</table>
@@ -142,7 +140,7 @@
 			<div class="modal-dialog modal-md" role="document">
 					<div class="modal-content">
 							<div class="modal-header bg-warning">
-									
+
 									<h4 class="modal-title">Summary of Order</h4>
 							</div>
 							<div class="modal-body">

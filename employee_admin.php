@@ -45,7 +45,7 @@
 								class="table table-responsive table-bordered table-condensed custom-table" style="margin: 0;">
 								<thead>
 									<tr class="default">
-										<td class="col-sm-4" style="vertical-align: middle !important;"><b>Ingredient</b></td>										
+										<td class="col-sm-4" style="vertical-align: middle !important;"><b>Ingredient</b></td>
 										<td class="col-sm-1" style="vertical-align: middle !important;"><b>Consumed</b></td>
 										<td class="col-sm-4" style="vertical-align: middle !important;"><b>Action</b></td>
 									</tr>
@@ -54,9 +54,12 @@
 
 							<?php
 								//session_start();
-								$connect = mysqli_connect("localhost", "root", "", "healthy_corner");
+								$connect = mysqli_connect("localhost", "root", "", "HNH");
 
-								$sql = "SELECT * FROM product_mother";
+								$sql = "SELECT product_mother.*, employee_count.count from product_mother
+	join employee_count
+    	on employee_count.prod_fk = product_mother.id
+where 1";
 								$result = mysqli_query($connect, $sql);
 
 
@@ -65,7 +68,7 @@
 									while($row = $result->fetch_assoc()) {
 										//$counts = $row["size"];
 										$id = $row["id"];
-										$count = $row['employee_count'];
+										$count = $row['count'];
 							?>
 
 										<table class="table-responsive table-bordered table-condensed custom-table" width=100%>
@@ -73,13 +76,13 @@
 												<tr>
 													<td class="col-sm-4">
 														<?php
-															echo "<b>" . $row ["name"] . "</b>";															
+															echo "<b>" . $row ["name"] . "</b>";
 
 														?>
 													</td>
-													<td class="col-sm-1"><?php echo $count; ?> </td>													
+													<td class="col-sm-1"><?php echo $count; ?> </td>
 														<?php
-															echo "<form action = 'count_process.php' method=post>";															
+															echo "<form action = 'count_process.php' method=post>";
 															echo "<td class='col-sm-5'>";
 															echo "<input type=number step='.01' min=0 name=amount placeholder='Quantity'/> ";
 															echo "<input type=hidden name=id value='" . $row ['id'] . "'/>";
@@ -88,8 +91,8 @@
 															// echo "<input type=hidden name=maxsize value='" . $row ['MaxSize'] . "'/>";
 															echo "<input type=hidden name=ingr value='" . $row ['name'] . "'/>";////////////////?>
 															 <input type=submit name=btn value=Add onClick = "return confirm('Are you sure you want to enter consumed value?')" class='btn btn-sm btn-success'/>
-																														
-															
+
+
 															<?php
 															echo "</form>";
 															echo "</td>";
@@ -106,10 +109,10 @@
 							?>
 						</div>
 					</div>
-				</div>				
+				</div>
 			</div>
 		</div>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-		<script src="CSS/bootstrap.min.js"></script>	
+		<script src="CSS/bootstrap.min.js"></script>
 	</body>
 </html>

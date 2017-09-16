@@ -144,14 +144,14 @@ p {
 								<?php
 
 								$result = mysqli_query($connect,
-	 							"CALL gethappy") or die("Query fail: " . mysqli_error());
+	 							"SELECT happy.*,  product_mother.* from happy join product_mother on happy.prod_fk = product_mother.id where 1") or die("Query fail: " . mysqli_error());
 
 						      while($row = mysqli_fetch_array($result)){
 						          if($row["section"] == "1"){
 						          ?>
 											<div>
 												<input type="hidden" name="name" id="name<?php echo $row['id']?>" value="<?php echo $row['name']?>">
-												<input type="radio" name="1" id="<?php echo $row['id']?>" value="<?php echo $row['name']?>">
+												<input type="radio" name="var1" id="<?php echo $row['id']?>" value="<?php echo $row['name']?>">
 											  <label for="<?php echo $row['id']?>">
 											    <h9><?php echo $row["name"]?></h9>
 											  </label>
@@ -162,7 +162,7 @@ p {
 										?>
 										<div>
 											<input type="hidden" name="name" id="name<?php echo $row['id']?>" value="<?php echo $row['name']?>">
-											<input type="radio" name="2" id="<?php echo $row['id']?>" value="<?php echo $row['name']?>">
+											<input type="radio" name="var2" id="<?php echo $row['id']?>" value="<?php echo $row['name']?>">
 											<label for="<?php echo $row['id']?>">
 												<h9><?php echo $row["name"]?></h9>
 											</label>
@@ -173,7 +173,7 @@ p {
 									?>
 									<div>
 										<input type="hidden" name="name" id="name<?php echo $row['id']?>" value="<?php echo $row['name']?>">
-										<input type="radio" name="3" id="<?php echo $row['id']?>" value="<?php echo $row['name']?>">
+										<input type="radio" name="var3" id="<?php echo $row['id']?>" value="<?php echo $row['name']?>">
 										<label for="<?php echo $row['id']?>">
 											<h9><?php echo $row["name"]?></h9>
 										</label>
@@ -197,16 +197,15 @@ p {
 							<div class="row">
 								<section>
 								<?php
-								$connect->next_result();
 								$result = mysqli_query($connect,
-	 							"CALL gethealthy") or die("Query fail: " . mysqli_error());
+	 							"SELECT healthy.*,  product_mother.* from healthy join product_mother on healthy.prod_fk = product_mother.id where 1") or die("Query fail: " . mysqli_error());
 
 						      while($row = mysqli_fetch_array($result)){
 						          if($row["section"] == "1"){
 						          ?>
 											<div>
 												<input type="hidden" name="name" id="name<?php echo $row['id']?>" value="<?php echo $row['name']?>">
-												<input type="radio" name="2" id="<?php echo $row['id']?>" value="<?php echo $row['name']?>">
+												<input type="radio" name="var1" id="<?php echo $row['id']?>" value="<?php echo $row['name']?>">
 											  <label for="<?php echo $row['id']?>">
 											    <h9><?php echo $row["name"]?></h9>
 											  </label>
@@ -217,7 +216,7 @@ p {
 										?>
 										<div>
 											<input type="hidden" name="name" id="name<?php echo $row['id']?>" value="<?php echo $row['name']?>">
-											<input type="radio" name="3" id="<?php echo $row['id']?>" value="<?php echo $row['name']?>">
+											<input type="radio" name="var2" id="<?php echo $row['id']?>" value="<?php echo $row['name']?>">
 											<label for="<?php echo $row['id']?>">
 												<h9><?php echo $row["name"]?></h9>
 											</label>
@@ -228,7 +227,7 @@ p {
 									?>
 									<div>
 										<input type="hidden" name="name" id="name<?php echo $row['id']?>" value="<?php echo $row['name']?>">
-										<input type="radio" name="4" id="<?php echo $row['id']?>" value="<?php echo $row['name']?>">
+										<input type="radio" name="var3" id="<?php echo $row['id']?>" value="<?php echo $row['name']?>">
 										<label for="<?php echo $row['id']?>">
 											<h9><?php echo $row["name"]?></h9>
 										</label>
@@ -393,9 +392,9 @@ for(x = 0; x < allRadios.length; x++){
 $(document).ready(function(data){
 	$('.add_to_cart').click(function(){
 		location.reload(true);
-		var meat = $("input[name=meat]:radio:checked").val();
-		var veg = $("input[name=veg]:radio:checked").val();
-		var rice = $("input[name=rice]:radio:checked").val();
+		var var1 = $("input[name=var1]:radio:checked").val();
+		var var2 = $("input[name=var2]:radio:checked").val();
+		var var3 = $("input[name=var3]:radio:checked").val();
 		var type= $("input[name=type]:radio:checked").val();
 		var action = "add";
 			$.ajax({
@@ -403,9 +402,9 @@ $(document).ready(function(data){
 				method:"POST",
 				dataType:"json",
 				data:{
-					meat:meat,
-					veg:veg,
-					rice:rice,
+					var1:var1,
+					var2:var2,
+					var3:var3,
 					type:type,
 					action:action
 				},
