@@ -1,129 +1,127 @@
 <?php
-	session_start();
+session_start();
 ?>
-
-
 
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="utf-8">
-		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="icon" href="images/icon.png">
 
-		<title>View Stocks</title>
-		<script src="css3.css"></script>
+	<title>Restock</title>
+	<script src="css3.css"></script>
 
-		<!-- Bootstrap -->
-		<link rel="stylesheet" href="CSS/bootstrap.min.css">
-		<link rel="stylesheet" type="text/css" href="css/home.css">
-	</head>
-	<body>
-		<div class="container-fluid" style="padding-top: 10px;">
-			<div class="row">
-				<div class="col-sm-2 text-left">					
-				</div>
-				<div class="col-sm-1 col-sm-offset-9">
-					<form action="logout.php">
-						<button name="" class="btn btn-danger btn-xs"
-							onClick="return confirm('Are you sure you want to logout?');">Logout</button>
-					</form>
-				</div>
-				<div class="clearfix"></div>
-			</div>
+	<!-- Bootstrap -->
+	<link rel="stylesheet" href="dist/css/bootstrap.min.css">
+	<link rel="stylesheet" href="dist/css/custom.css">
+	<link rel="stylesheet" href="dist/font-awesome/css/font-awesome.min.css">
+</head>
+<body>
+	<!-- NAVBAR -->
+	<nav class="navbar sticky-top navbar-toggleable-md navbar-light bg-success navbar-inverse">
+		<button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<a class="navbar-brand" href="#">
+			<img src="images/icon.png" width="40" height="40"  class="d-inline-block align-top">
+			Happy N' Healthy
+		</a>
 
-			<div class="row" style="margin-top: 10px;">
-				<div class="col-sm-12">
-					<div class="col-sm-12" style="margin-top: -1%"><h1 class="header"><img src="images/header.png"></h1></div>
-				</div>
-				<div class="clearfix"></div>
-			</div>
-
-			<ul class="nav nav-tabs navbar-left">
-				<li class="active"><a data-toggle="tab" href="#stocks">Stocks</a></li>
-				<li><a href="admreports.php">Report</a></li>
-				<li><a href="admprices.php">Prices</a></li>
-				<li><a href="admacc.php">Account Management</a></li>
-				<li><a href="addprodingr.php">Products</a></li>
+		<div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+			<ul class="navbar-nav mr-auto mt-2 mt-md-0">
+				<li class="nav-item">
+					<a class="nav-link" href="employee_admin.php">Stocks</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="employee_logs.php">Reports</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="#">Account Management</a>
+				</li>
+				<li class="nav-item active">
+					<span class="nav-link" href="restock.php">Products <span class="sr-only">(current)</span></span>
+				</li>
 			</ul>
 
-			<div class="clearfix"></div>
-
-			<div class="tab-content white-bg">
-				<div id="stocks" class="tab-pane fade in active" style="height: 480px; overflow-y: scroll;">
-					<div class="row center-block">
-						<div class="col-sm-12">
-
-							<table
-								class="table table-responsive table-bordered table-condensed custom-table" style="margin: 0;">
-								<thead>
-									<tr class="default">
-										<td class="col-sm-4" style="vertical-align: middle !important;"><b>Ingredient</b></td>
-										<td class="col-sm-1" style="vertical-align: middle !important;"><b>Max
-												quantity</b></td>
-										<td class="col-sm-1" style="vertical-align: middle !important;"><b>Current
-												quantity</b></td>
-										<td class="col-sm-5" style="vertical-align: middle !important;"><b>Action</b></td>
-									</tr>
-								</thead>
-							</table>
-
-							<?php								
-								$connect = mysqli_connect("localhost", "root", "", "healthy_corner");
-
-								$sql = "SELECT * FROM product_mother";
-								$result = mysqli_query($connect, $sql);
-
-
-								if ($result->num_rows > 0) {									
-									while($row = $result->fetch_assoc()) {										
-										$id = $row["id"];
-										$size = $row['MaxSize'];
-							?>
-
-										<table class="table-responsive table-bordered table-condensed custom-table" width=100%>
-											<tbody>
-												<tr>
-													<td class="col-sm-4">
-														<?php
-															echo "<b>" . $row ["name"] . "</b>";															
-														?>
-													</td>
-													<td class="col-sm-1"><?php echo $row['MaxSize']; ?> </td>
-													<td class="col-sm-1">
-														<?php
-															echo "<form action = 'restock_process.php' method=post>";
-															echo $row ['size'];															
-															echo "</td>";
-															echo "<td class='col-sm-5'>";
-															echo "<input type=number step='.01' min=0 name=amount placeholder='Quantity'/> ";
-															echo "<input type=hidden name=id value='" . $row ['id'] . "'/>";
-															echo "<input type=hidden name=currentsize value='" . $row ['size'] . "'/>";
-															echo "<input type=hidden name=beforesize value='" . $row ['temp'] . "'/>";
-															echo "<input type=hidden name=maxsize value='" . $row ['MaxSize'] . "'/>";
-															echo "<input type=hidden name=ingr value='" . $row ['name'] . "'/>";////////////////?>
-															<input type=submit name=btn value=Restock onClick = "return confirm('Are you sure you want to restock?')" class='btn btn-sm btn-success'/>																														
-
-															<?php
-															echo "</form>";
-															echo "</td>";
-														?>
-												</tr>
-											</tbody>
-										</table>
-							<?php
-									}
-								} else {
-									echo "0 results";
-								}
-								$connect->close();
-							?>
-						</div>
-					</div>
-				</div>			
+			<span class="navbar-text">
+				<a class=" nav-item btn btn-danger btn-sm" href="logout.php">Logout</a>
+			</span>
+		</div>
+	</nav>
+	<div class="container">
+		<div class="row">
+			<div class="col mt-3">
+				<h1 class="display-4">Restock</h1>
 			</div>
 		</div>
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-		<script src="CSS/bootstrap.min.js"></script>	
-	</body>
+		<div class="row justify-content-center">
+			<div class="col">
+				<table class="table table-bordered table-striped">
+					<thead class="thead-inverse">
+						<tr>
+							<th class="text-center">INGREDIENT</th>
+							<th class="text-center">MAX QUANTITY</th>
+							<th class="text-center">CURRENT QUANTITY</th>
+							<th class="text-center" colspan="2">ACTION</th>
+						</tr>
+					</thead>
+
+					<tbody class="text-center">
+						<?php								
+						$connect = mysqli_connect("localhost", "root", "", "hnh");
+
+						$sql = "SELECT * FROM product_mother";
+						$result = mysqli_query($connect, $sql);
+
+
+						if ($result->num_rows > 0) {									
+							while($row = $result->fetch_assoc()) {										
+								$id = $row["id"];
+								$size = $row['MaxSize'];
+								?>
+								<tr>
+									<th scope='row' class="text-center">
+										<?php echo $row ["name"]; ?>
+									</th>
+									<td><?php echo $row['MaxSize']; ?> </td>
+										<?php
+										echo "<form action = 'restock_process.php' method=post class='form-inline'>";
+										echo "<td class='text-center'>";
+										echo $row ['size'];															
+										echo "</td>";
+										echo "<td>";
+										echo "<input type=number step='.01' min=0 name=amount placeholder='Quantity' class='form-control'/> ";
+										echo "<input type=hidden name=id value='" . $row ['id'] . "'/>";
+										echo "<input type=hidden name=currentsize value='" . $row ['size'] . "'/>";
+										echo "<input type=hidden name=beforesize value='" . $row ['temp'] . "'/>";
+										echo "<input type=hidden name=maxsize value='" . $row ['MaxSize'] . "'/>";
+										echo "<input type=hidden name=ingr value='" . $row ['name'] . "'/>";////////////////
+										echo "</td>"?>
+										<td>
+											<button type=submit name=btn value=Restock onClick = "return confirm('Are you sure you want to restock?')" class='btn btn-md btn-outline-success form-control'>
+												<i class="fa fa-check-square-o pr-1" aria-hidden="true"></i>Restock
+											</button>																													
+
+										<?php
+										echo "</td>";
+										echo "</form>";
+										?>
+								</tr>
+						<?php
+							}
+						} else {
+							echo "0 results";
+						}
+						$connect->close();
+						?>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	<script src="CSS/bootstrap.min.js"></script>	
+</body>
 </html>

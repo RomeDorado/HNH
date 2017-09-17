@@ -4,193 +4,194 @@ session_start();
 
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Reports</title>
-        <script src="css3.css"></script>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="icon" href="images/icon.png">
 
-        <link href="CSS/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="CSS/home.css">
+	<title>Reports</title>
+	<script src="css3.css"></script>
 
-    </head>
-    <body>
-        <div class="container-fluid" style="padding-top: 10px;">
-        <div class="row">
-            <div class="col-sm-2 text-left">                
-            </div>
-            <div class="col-sm-1 col-sm-offset-9">
-                <form action="logout.php">
-                    <button name="" class="btn btn-danger btn-xs"
-                        onClick="return confirm('Are you sure you want to logout?');">Logout</button>
-                </form>
-            </div>
-            <div class="clearfix"></div>
-        </div>
+	<!-- Bootstrap -->
+	<link rel="stylesheet" href="dist/css/bootstrap.min.css">
+	<link rel="stylesheet" href="dist/css/custom.css">
+	<link rel="stylesheet" href="dist/font-awesome/css/font-awesome.min.css">
+</head>
+<body>
+	<!-- NAVBAR -->
+	<nav class="navbar sticky-top navbar-toggleable-md navbar-light bg-success navbar-inverse">
+		<button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<a class="navbar-brand" href="#">
+			<img src="images/icon.png" width="40" height="40"  class="d-inline-block align-top">
+			Happy N' Healthy
+		</a>
 
-        <div class="row" style="margin-top: 10px;">
-            <div class="col-sm-12">
-                <div class="col-sm-12" style="margin-top: -1%"><h1 class="header"><img src="images/header.png"></h1></div>
-            </div>
-            <div class="clearfix"></div>
-        </div>
+		<div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+			<ul class="navbar-nav mr-auto mt-2 mt-md-0">
+				<li class="nav-item">
+					<a class="nav-link" href="employee_admin.php">Stocks</a>
+				</li>
+				<li class="nav-item active">
+					<span class="nav-link">Reports <span class="sr-only">(current)</span></span>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="#">Account Management</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="restock.php">Products</a>
+				</li>
+			</ul>
 
-            <ul class="nav nav-tabs navbar-left">
-                <li><a href="adm.php">Stocks</a></li>
-                <li class="active"><a href="admreports.php">Report</a></li>
-                <li><a href="admprices.php">Prices</a></li>
-                <li><a href="admacc.php">Account Management</a></li>
-                <li><a href="addprodingr.php">Products</a></li>
-            </ul>
+			<span class="navbar-text">
+				<a class=" nav-item btn btn-danger btn-sm" href="logout.php">Logout</a>
+			</span>
+		</div>
+	</nav>
+	<div class="container">
+		<div class="row">
+			<div class="col mt-3">
+				<h1 class="display-4">View Transactions</h1>
+			</div>
+		</div>
 
-            <div class="clearfix"></div>
+		<!-- SEARCH FORM -->
+		<div class="mt-3" style="background-color:;">
+			<div class="row justify-content-center">
+				<div class="col-md-6">
+					<form action="employee_logs.php" method="GET">
+						<div class="form-group row">
+							<label for="startdate" class="col-md-3 form-control-label">Pick start date: </label>
+							<div class="col-md-9">
+								<input type="date" name="startdate" class="form-control" required />
+							</div>
+						</div>
 
-                <div>
-                    <div class="tab-content white-bg">
-                        <div id="daily" class="tab-pane fade in active" style="height: 480px; overflow-y: auto; margin:0 15px 0 15px;" >
-                            <h4><b>View Transactions</b></h4>
-                            <form action="employee_logs.php" method="GET">
-                                <div style="width: 70%;" class="col-md-10 center-block" >
-                                    <div class="form-group col-md-5">
-                                        <label for="startdate" class="col-md-5 control-label">Pick start date: </label>
-                                        <div class="col-md-7">
-                                            <input type="date" name="startdate" class="form-control" required />
-                                        </div>
-                                    </div>
+						<div class="form-group row">
+							<label for="startdate" class="col-md-3 control-label">Pick end date: </label>
+							<div class="col-md-9">
+								<input type="date" name="enddate" class="form-control" required />
+							</div>
+						</div>
 
-                                    <div class="form-group col-md-5">
-                                        <label for="startdate" class="col-md-5 control-label">Pick end date: </label>
-                                        <div class="col-md-7">
-                                            <input type="date" name="enddate" class="form-control" required />
-                                        </div>
-                                    </div>
-                                    <div class="col-md-2"><input type="submit" value="Search" class="btn btn-sm btn-success" style="margin-left: -8em;"></div>
-                                </div>
-                            </form>
+						<div class="form-group row mt-4 justify-content-center">
+							<button type="submit" class="btn col-md-8 mx-sm-5 btn-md btn-success">
+								<i class="fa fa-search pr-1" aria-hidden="true"></i>Search
+							</button>
+						</div>
 
-                            <table class="table table-bordered white-bg col-md-8" style="font-size: 1em;">
-                                <thead class="default">
-                                    <tr>
-                                        <th width="50%">Product</th>
-                                        <th width="50%">Timestamp</th>                                        
-                                    <tr>
-                                </thead>
+					</form> 
+				</div>          
+			</div>
+		</div>
 
-                                <tbody>
-                                    <?php
-                                    $connect = mysqli_connect("localhost", "root", "", "healthy_corner");
-                                    if(isset($_GET["startdate"]) && isset($_GET["enddate"])){
-                                    $a=$_GET["startdate"];
-                                    $b=$_GET["enddate"];
+		<!-- LOG TABLE -->
+		<div class="mt-4" style="background-color:;">
+			<div class="row justify-content-center">
+				<div class="col">
+					<table class="table table-striped table-bordered">
+						<thead class="thead-inverse">
+							<tr>
+								<th>PRODUCT</th>
+								<th>TIMESTAMP</th>
+							</tr>
+						</thead>
+						<tbody>
+							<?php
+							$connect = mysqli_connect("localhost", "root", "", "hnh");
+							if(isset($_GET["startdate"]) && isset($_GET["enddate"])){
+								$a=$_GET["startdate"];
+								$b=$_GET["enddate"];
 
-                                    $sql = "SELECT * FROM consumed_logs WHERE date BETWEEN '$a' AND '$b'";
-                                    $result= mysqli_query($connect,$sql);
-                                    while($row = $result->fetch_assoc()){?>
-                                    <tr>                                        
-                                        <td><?php echo $row["product"]?></td>
-                                        <td><?php echo "&#8369;" . $row["date"]?></td>
-                                    </tr>
-                                    <?php
-                                    }
-                                }
-                                else{
-                                    $today = date("Y-m-d");
-                                    $_GET["startdate"] = $today;
-                                    $_GET["enddate"] = $today;
-                                    $a=$_GET["startdate"];
-                                    $b=$_GET["enddate"];
+								$sql = "SELECT * FROM consumed_logs WHERE date BETWEEN '$a' AND '$b'";
+								$result= mysqli_query($connect,$sql);
+								while($row = $result->fetch_assoc()){?>
+								<tr>                                        
+									<th scope="row"><?php echo $row["product"]?></td>
+										<td><?php echo $row["date"]?></td>
+									</tr>
+									<?php
+								}
+							}
+							else{
+								$today = date("Y-m-d");
+								$_GET["startdate"] = $today;
+								$_GET["enddate"] = $today;
+								$a=$_GET["startdate"];
+								$b=$_GET["enddate"];
 
-                                    $sql = "SELECT * FROM consumed_logs WHERE date BETWEEN '$a' AND '$b'";
-                                    $result= mysqli_query($connect,$sql);
-                                    while($row = $result->fetch_assoc()){?>
+								$sql = "SELECT * FROM consumed_logs WHERE date BETWEEN '$a' AND '$b'";
+								$result= mysqli_query($connect,$sql);
+								while($row = $result->fetch_assoc()){?>
 
-                                    <?php
-                                    }
-                                }
-                                    ?>
-
-                                </tbody>                                
-                            </table>
-
-                        </div>
-
-                        <!-- <div id="weekly" class="tab-pane fade">
-                            <h1>WEEKLY CONTENT</h1>
-
-
-                        </div> -->
-                    </div>
-
-                </div>
-
-        </div>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-        <script src="CSS/bootstrap.min.js"></script>
-
-
-
-    <form action = "restock.php" method="GET">
-        <div class="modal fade" id="modal-1" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog modal-md" role="document">
-            <div class="modal-content">
-                <div class="modal-header bg-warning">
-                    <h4 class="modal-title"><b/>Restock</h4>
-                </div>
-                <div class="modal-body p-b-0">
-
-
-        <input type="number" required="required" placeholder="Enter Amount" id="amount" name="amount" style="height:50px;"/>
-        <input type="hidden" name="id" value="<?php echo $row["id"]; ?>">
-
-
-
-        <p id="error"/>
-                </div>
-                <div class="modal-footer">
-        <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">Cancel</span>
-                    </button> -->
-        <input type="submit" class="btn btn-warning pull-lg-left" name="Submit" id="submitbutton" />
-        <input type="submit" class="btn btn-warning pull-lg-left" class="fa fa-unlock-alt" value="Cancel" formnovalidate/>
-        </div>
-            </div>
-        </div>
-    </div>
-
-<div class="modal fade" id="myModal" role="dialog">
-        <div class="modal-dialog modal-md" role="document">
-                <div class="modal-content">
-                        <div class="modal-header bg-warning">
-                                
-                                <h4 class="modal-title">Summary of Order</h4>
-                        </div>
-                        <div class="modal-body">
-                                <div class="fetched-data">
-
-                                </div>
-                        </div>
-                        <div class="modal-footer">
-                                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                        </div>
-                </div>
-        </div>
+								<?php
+							}
+						}
+						?>
+					</tbody>
+				</table>
+			</div>          
+		</div>
+	</div>
 </div>
 
-    </body>
-    <script>
-                $(document).ready(function(){
-        $('#myModal').on('show.bs.modal', function (e) {
-                var rowid = $(e.relatedTarget).data('id');
-                $.ajax({
-                        type : 'post',
-                        url : 'fetch_record.php', //Here you will fetch records
-                        data :  'rowid='+ rowid, //Pass $id
-                        success : function(data){
-                        $('.fetched-data').html(data);//Show fetched data from database
-                        }
-                });
-        });
-});
-        </script>
+<!-- MODAL
+	<div class="modal fade" id="myModal" role="dialog">
+		<div class="modal-dialog modal-md" role="document">
+			<div class="modal-content">
+				<div class="modal-header bg-warning">
+
+					<h4 class="modal-title">Summary of Order</h4>
+				</div>
+				<div class="modal-body">
+					<div class="fetched-data">
+
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+ 
+	<form action="employee_logs.php" method="GET">
+		<div class="col-6" style="background-color: red;">
+			<div class="form-group row justify-content-center">
+				<label for="startdate" class="col control-label">Pick start date: </label>
+				<div class="col">
+					<input type="date" name="startdate" class="form-control" required />
+				</div>
+			</div>
+
+			<div class="form-group col-md-5">
+				<label for="startdate" class="col-md-5 control-label">Pick end date: </label>
+				<div class="col-md-7">
+					<input type="date" name="enddate" class="form-control" required />
+				</div>
+			</div>
+			<div class="col-md-2"><input type="submit" value="Search" class="btn btn-sm btn-success" style="margin-left: -8em;"></div>
+		</div>
+	</form>
+-->
+<script>
+	$(document).ready(function(){
+		$('#myModal').on('show.bs.modal', function (e) {
+			var rowid = $(e.relatedTarget).data('id');
+			$.ajax({
+				type : 'post',
+						url : 'fetch_record.php', //Here you will fetch records
+						data :  'rowid='+ rowid, //Pass $id
+						success : function(data){
+						$('.fetched-data').html(data);//Show fetched data from database
+					}
+				});
+		});
+	});
+</script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="dist/js/bootstrap.min.js"></script>
+</body>
 </html>

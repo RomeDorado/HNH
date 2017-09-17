@@ -69,8 +69,8 @@
 													<?php
 														// error_reporting(E_ALL ^ E_DEPRECATED);
 														$_SESSION['message'] = '';
-														$dbhandle = mysql_connect('localhost', 'root', '' , 'HNH');
-														$selected = mysql_select_db("HNH", $dbhandle);
+														$dbhandle = mysql_connect('localhost', 'root', '' , 'hnh');
+														$selected = mysql_select_db("hnh", $dbhandle);
 
 														if(isset($_POST['username']) && isset($_POST['password'])){
 															if($_POST['password']==$_POST['confirmpassword']){
