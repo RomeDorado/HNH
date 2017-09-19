@@ -5,106 +5,93 @@
 
 <!DOCTYPE html>
 	<html lang="en">
-		<head>
-			<meta charset="utf-8">
-			<meta http-equiv="X-UA-Compatible" content="IE=edge">
-			<meta name="viewport" content="width=device-width, initial-scale=1">
-			<title>Reports</title>
-			<script src="css3.css"></script>
+<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="icon" href="images/icon.png">
 
-			<link href="CSS/bootstrap.min.css" rel="stylesheet">
-		<link rel="stylesheet" type="text/css" href="CSS/home.css">
+	<title>Reports</title>
+	<script src="css3.css"></script>
 
-		</head>
-		<body>
-			<div class="container-fluid" style="padding-top: 10px;">
+	<!-- Bootstrap -->
+	<link rel="stylesheet" href="dist/css/bootstrap.min.css">
+	<link rel="stylesheet" href="dist/css/custom.css">
+	<link rel="stylesheet" href="dist/font-awesome/css/font-awesome.min.css">
+</head>
+<body>
+	<!-- Navbar -->
+	<nav class="navbar sticky-top navbar-toggleable-md navbar-light bg-success navbar-inverse">
+		<button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<a class="navbar-brand" href="#">
+			<img src="images/icon.png" width="40" height="40" class="d-inline-block align-top">
+			Happy N' Healthy
+		</a>
+
+		<div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+			<ul class="navbar-nav mr-auto mt-2 mt-md-0">
+				<li class="nav-item active">
+					<span class="nav-link">Stocks <span class="sr-only">(current)</span></span>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="employee_logs.php">Reports</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="#">Account Management</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="restock.php">Products</a>
+				</li>
+			</ul>
+
+			<span class="navbar-text">
+				<a class=" nav-item btn btn-danger btn-sm" href="logout.php">Logout</a>
+			</span>
+		</div>
+	</nav>
+<div class="container">
+		<div class="row">
+			<div class="col mt-3">
+				<h1 class="display-4">View Sales</h1>
+			</div>
+		</div>
+
+		<div class="mt-3">
 			<div class="row">
-				<div class="col-sm-2 text-left">
-					<?php
-						// require_once("auth.php");
-						// echo "<span style='padding: 2px; background-color:rgba(255,255,255,0.5);'><b>Welcome, <span style='color:#ed0000;'>" . $_SESSION['user'] . "</span></b></span>";
-					?>
-				</div>
-				<div class="col-sm-1 col-sm-offset-9">
-					<form action="logout.php">
-						<button name="" class="btn btn-danger btn-xs"
-							onClick="return confirm('Are you sure you want to logout?');">Logout</button>
-					</form>
-				</div>
-				<div class="clearfix"></div>
-			</div>
+				<div class="col">
+					<table class="table table-reflow table-striped table-bordered">
+						<thead class="thead-inverse">
+							<tr>
+								<th class="text-center">PRODUCT NAME</th>
+								<th class="text-center">ACTUAL CONSUMED</th>
+								<th colspan="2" class="text-center">EMPLOYEE CONSUMED</th>
+							</tr>
+						</thead>
 
-			<div class="row" style="margin-top: 10px;">
-				<div class="col-sm-12">
-					<div class="col-sm-12" style="margin-top: -1%"><h1 class="header"><img src="images/header.png"></h1></div>
-				</div>
-				<div class="clearfix"></div>
-			</div>
-
-				<ul class="nav nav-tabs navbar-left">
-					<li><a href="adm.php">Stocks</a></li>
-					<li class="active"><a href="admreports.php">Report</a></li>
-					<li><a href="admprices.php">Prices</a></li>
-					<li><a href="admacc.php">Account Management</a></li>
-					<li><a href="addprodingr.php">Products</a></li>
-				</ul>
-
-				<div class="clearfix"></div>
-
-					<div>
-						<div class="tab-content white-bg">
-							<div id="daily" class="tab-pane fade in active" style="height: 480px; overflow-y: auto; margin:0 15px 0 15px;" >
-								<h4><b>View Sales</b></h4>
-								<form action="admreports.php" method="GET">
-									<div style="width: 70%;" class="col-md-10 center-block" >
-										<div class="form-group col-md-5">
-
-
-										</div>
-									</div>
-								</form>
-
-								<table class="table table-bordered white-bg col-md-8" style="font-size: 1em;">
-									<thead class="default">
-										<tr>
-											<th width="20%">Product Name</th>
-											<th width="40%">Actual consumed</th>
-											<th width="40%">Employee consumed</th>
-
-										<tr>
-									</thead>
-
-									<tbody>
-                                    <?php
-                                    $sql1 = "SELECT product_mother.*, employee_count.count from product_mother join employee_count on employee_count.prod_fk = product_mother.id where 1";
+						<tbody>
+							<?php
+								//session_start();
+							  $sql1 = "SELECT product_mother.*, employee_count.count from product_mother join employee_count on employee_count.prod_fk = product_mother.id where 1";
                                     $result=mysqli_query($connect, $sql1);
                                         while($row = $result->fetch_assoc()){
-                                    ?>
-										<tr></tr>
-                                        <td><?php echo $row["name"]?></td>
-										<td><?php echo $row["sales_count"]?></td>
-										<td><?php echo $row["count"]?></td>
-                                    <?php
+									?>
+
+									<tr>
+										<th scope="row" class="text-center">
+											<?php echo $row ["name"]; ?>
+										</th>
+										<td class="text-center"><?php echo $sales_count; ?> </td>
+										<td class="text-center"><?php echo $count; ?> </td>
+										 <?php
                                         }
                                     ?>
-									</tbody>
-
-
-
-								</table>
-
-							</div>
-
-							<!-- <div id="weekly" class="tab-pane fade">
-								<h1>WEEKLY CONTENT</h1>
-
-
-							</div> -->
-						</div>
-
+							</tbody>
+						</table>
 					</div>
-
+				</div>
 			</div>
+		</div>
 			<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 			<script src="CSS/bootstrap.min.js"></script>
 
