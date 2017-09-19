@@ -430,11 +430,19 @@ session_start();?>
 					}
 					?>
 					<tr>
-						<td colspan="5"></td>
+						<td colspan="5" align="right">
+						<?php 
+						$result = mysqli_query($connect,'SELECT SUM(price) AS total FROM temp'); 
+						$row = mysqli_fetch_assoc($result);
+						$sum = $row['total'];
+						$_SESSION['total'] = $sum;
+						 ?>
+							<p>Total: <?php echo $sum; ?></p>
+						</td>
 						<td align="center">
-							<form class="form-text" action="submit_process.php" method="post">
-								<button type="submit" class="btn btn-success btn-md form-control">Submit</button>
-							</form>
+							<!-- <form class="form-text" action="submit_process.php" method="post"> -->
+								<button type="submit" data-toggle="modal" data-target="#modal-1" class="btn btn-success btn-md form-control">Submit</button>
+							<!-- </form> -->
 						</td>
 					</tr>
 				</tbody>
@@ -442,6 +450,90 @@ session_start();?>
 		</div>
 	</div>
 </div>
+
+<div class="modal fade" id="modal-1" tabindex="-1" role="dialog" aria-hidden="true">
+						<div class="modal-dialog modal-sm" role="document">
+							<div class="modal-content">
+
+								<div class="modal-header bg-success">
+									<h4 class="modal-title text-white">Input Payment</h4>
+								</div>
+
+								<div class="modal-body p-b-0">
+									<form method="post" action="" class="form-inline">
+										<input type="number" required="required" placeholder="Enter Amount" id="amount" name="amount" class="form-control col-12"/>
+										<p id="error"/></p>
+
+								</div>
+
+								<div class="modal-footer">
+									<input type="submit" class="btn btn-outline-success pull-lg-left" data-dismiss="modal" data-toggle="modal" data-target="#modal-2" onclick="k()"class="fa fa-unlock-alt" value="Proceed" name="submit">
+									<input type="submit" class="btn btn-outline-success pull-lg-left" class="fa fa-unlock-alt" value="Cancel" data-dismiss="modal" aria-label="Close"/>
+
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+
+				<!---------------------------------------- SECOND MODAL ---------------------------------------->
+				<form action="submit_process.php" method="post">
+					<div class="modal fade" id="modal-2" tabindex="-1" role="dialog" aria-hidden="true">
+						<div class="modal-dialog modal-sm" role="document">
+							<div class="modal-content">
+								<div class="modal-header bg-success">
+									<h4 class="modal-title text-white">Bill Confirmation</h4>
+									<button type="button" class="close float-right" data-dismiss="modal" aria-label="Close">
+										<span aria-hidden="true">&times;</span>
+									</button>
+
+								</div>
+								<div class="modal-body">
+									<p id ="demo1"></p>
+									<p id="demo2"></p>
+									<p id ="demo3"></p>
+									<script>
+										function k(){
+											var amount = document.getElementById("amount").value;
+											var insufficient = "Insufficient amount";
+											var none = "No amount entered";
+											var tot = <?php echo $_SESSION['total'] ?>;
+											var change = amount - tot;
+
+											if (amount > tot){
+											document.getElementById('demo1').innerHTML =amount;
+											document.getElementById('demo3').innerHTML = change;
+											document.getElementById('demo2').innerHTML = tot;
+											document.getElementById("submitbutton").disabled = false;
+											}
+											else if(amount == ""){
+												document.getElementById('demo1').innerHTML = none;
+												document.getElementById("submitbutton").disabled = true;
+											}
+											else if(amount < tot){
+												document.getElementById('demo1').innerHTML = insufficient;
+												document.getElementById('demo3').innerHTML = "";
+												document.getElementById('demo2').innerHTML = "";
+												document.getElementById("submitbutton").disabled = true;
+											}else if(amount == tot){
+												document.getElementById('demo1').innerHTML =amount;
+												document.getElementById('demo3').innerHTML = change;
+												document.getElementById('demo2').innerHTML = tot;
+												document.getElementById("submitbutton").disabled = false;
+											}else{}
+										}
+									</script>
+								</div>
+
+								<div class="modal-footer">
+									<button type="button" class="btn btn-outline-danger pull-lg-left" id="backbutton" data-dismiss="modal" data-toggle="modal" data-target="#modal-1">Back</button>
+									<input type="submit" class="btn btn-outline-success pull-lg-left" name="Submit" id="submitbutton" onClick="return confirm('Are you sure you would like to submit this order?');"/>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row m-a-1" style="text-align: center;"></div>
+				</form>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script src="dist/js/bootstrap.min.js"></script>
 <script type="text/javascript">

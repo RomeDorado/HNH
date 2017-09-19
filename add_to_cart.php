@@ -1,3 +1,4 @@
+
 <?php
     session_start();
     $connect = mysqli_connect("localhost","root","","HNH");
@@ -42,8 +43,27 @@
 		if($type=="duo"){
 		  $price = 89;
 		}
-		if($type=="trio"){
+		elseif($type=="trio"){
 		  $price = 99;
+		}
+		elseif($type == "ac"){	
+			if($meat != null){
+				$result = mysqli_query($connect,"SELECT product_mother.alacarte FROM `product_mother` WHERE name = '$meat'"); 
+				$row = mysqli_fetch_assoc($result);
+				$price = $row['alacarte'];
+			}
+			if($veg != null){
+				$result = mysqli_query($connect,"SELECT product_mother.alacarte FROM `product_mother` WHERE name = '$veg'"); 
+				$row = mysqli_fetch_assoc($result);
+				$price = $row['alacarte'];
+			}
+			if($rice != null){
+				$result = mysqli_query($connect,"SELECT product_mother.alacarte FROM `product_mother` WHERE name = '$rice'"); 
+				$row = mysqli_fetch_assoc($result);
+				$price = $row['alacarte'];
+			}
+
+
 		}
 		echo '<script>console.log($meat)</script>';
 		$query = "INSERT INTO `temp` (`id`, `item1`, `item2`, `item3`, `type`, `price`) VALUES (NULL, '".$meat."', '".$veg."', '".$rice."', '".$type."', '".$price."')";

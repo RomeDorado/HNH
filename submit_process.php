@@ -27,7 +27,7 @@ $res = mysqli_query($connect, $sql);
 	$result2=mysqli_query($connect, $sql2);
 	while($row = $result2->fetch_assoc()){
 
-		$sql3 = "INSERT INTO `transaction` (`transact_id`, `date`, `1`, `2`, `3`, `total`, `type`) VALUES (NULL, CURRENT_TIMESTAMP, '".$row['item1']."', '".$row['item2']."', '".$row['item3']."', '".$row['type']."', '".$row['price']."')";
+		$sql3 = "INSERT INTO `transaction` (`transact_id`, `date`, `1`, `2`, `3`, `total`, `type`) VALUES (NULL, CURRENT_TIMESTAMP, '".$row['item1']."', '".$row['item2']."', '".$row['item3']."', '".$_SESSION['total']."', '".$row['type']."')";
 		$conn->query($sql3);
 		$insert = "UPDATE `product_mother` SET `current` = (`current`- 1) WHERE `name` = '".$row['item1']."'";
 		$conn->query($insert);
@@ -35,6 +35,8 @@ $res = mysqli_query($connect, $sql);
 		$conn->query($insert);
 		$insert = "UPDATE `product_mother` SET `current` = (`current`- 1) WHERE `name` = '".$row['item3']."'";
 		$conn->query($insert);
+
+
 	}
 
 
