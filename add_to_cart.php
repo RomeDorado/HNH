@@ -1,6 +1,6 @@
 
 <?php
-    session_start();
+    session_start(); //
     $connect = mysqli_connect("localhost","root","","HNH");
 	if($_POST["action"] == "remove"){
     echo "<script> alert('pasok');</script>";
